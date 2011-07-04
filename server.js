@@ -11,7 +11,7 @@ http.createServer(function(request, response) {
     var filename = path.join(process.cwd(), '/app.html');  
     fs.readFile(filename, "binary", function(err, file) {
       if(err) {  
-        response.sendHeader(500, {"Content-Type": "text/plain"});  
+        response.writeHead(500, {"Content-Type": "text/plain"});  
         response.write(err + "\n");  
         response.end();
         return;  
@@ -22,7 +22,7 @@ http.createServer(function(request, response) {
       response.end();
     });  
   } else {
-    response.sendHeader(500, {"Content-Type": "text/plain"});  
+    response.writeHead(500, {"Content-Type": "text/plain"});  
     response.write("Dude, I have no idea what a " + uri + " is.");  
     response.end();
   };  
