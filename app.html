@@ -15,7 +15,13 @@
 
         Friend = Backbone.Model.extend({
           //Create a model to hold friend atribute
-          name: null
+          name: null,
+          events: {
+            "destroy":  "removeView"
+          },
+          removeView: function (e) {
+            $.remove(e.id);
+          }
         });
 
         Friends = Backbone.Collection.extend({
@@ -23,13 +29,7 @@
           initialize: function (models, options) {
             this.bind("add", options.view.addFriendLi);
             //Listen for new additions to the collection and call a view function if so
-          },
-          events: {
-            "destroy":  "removeView"
-          },
-          removeView: function (e) {
-            $.remove(e.id);
-          },
+          }
         });
 
         AppView = Backbone.View.extend({
