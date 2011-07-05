@@ -50,13 +50,13 @@
             this.friends.add( friend_model );
           },
           deleteFriend: function (e) {
-            var li = $(e).parent('li');
-            var f = Friends.get(li.id);
+            var li = $(e.currentTarget).parent('li');
+            var f = this.friends.getByCid(li.attr('id'));
             f.destroy();
           },
           addFriendLi: function (model) {
             //The parameter passed is a reference to the model that was added
-            $("#friends-list").append("<li id='"+model.get("id")+"'>" + model.get('name') + " <a href='#' class='unHaz'>delete</a></li>");
+            $("#friends-list").append("<li id='"+model.cid+"'>" + model.get('name') + " <a href='#' class='unHaz'>delete</a></li>");
             //Use .get to receive attributes of the model
           }
         });
