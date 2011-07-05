@@ -16,13 +16,15 @@
         Friend = Backbone.Model.extend({
           //Create a model to hold friend atribute
           name: null,
-          events: {
-            "destroy":  "removeView"
-          },
-          removeView: function (e) {
-            $.remove(e.id);
+          initialize: function(options) {
+            //Bind the remove event to the destroy and delete the html element
+            this.bind("remove", function() {
+              $('#'+this.cid).remove();
+              this.destroy();
+            });
           }
         });
+        
 
         Friends = Backbone.Collection.extend({
           //This is our Friends collection and holds our Friend models
@@ -52,7 +54,7 @@
           deleteFriend: function (e) {
             var li = $(e.currentTarget).parent('li');
             var f = this.friends.getByCid(li.attr('id'));
-            f.destroy();
+            this.friends.remove(f);
           },
           addFriendLi: function (model) {
             //The parameter passed is a reference to the model that was added
